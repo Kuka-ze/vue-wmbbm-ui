@@ -10,7 +10,7 @@
         class="ms-content"
       >
         <el-form-item prop="username">
-          <el-input v-model="param.username" placeholder="username">
+          <el-input v-model="param.username" placeholder="请输入账户">
             <template #prepend>
               <el-button icon="el-icon-user"></el-button>
             </template>
@@ -19,7 +19,7 @@
         <el-form-item prop="password">
           <el-input
             type="password"
-            placeholder="password"
+            placeholder="请输入密码"
             v-model="param.password"
             @keyup.enter="submitForm()"
           >
@@ -31,7 +31,6 @@
         <div class="login-btn">
           <el-button type="primary" @click="submitForm()">登录</el-button>
         </div>
-        <p class="login-tips">Tips : 用户名和密码随便填。</p>
       </el-form>
     </div>
   </div>
@@ -47,15 +46,15 @@ export default {
   setup() {
     const router = useRouter();
     const param = reactive({
-      username: "admin",
-      password: "123123",
+      username: "",
+      password: "",
     });
 
     const rules = {
       username: [
         {
           required: true,
-          message: "请输入用户名",
+          message: "请输入账户",
           trigger: "blur",
         },
       ],
@@ -65,7 +64,6 @@ export default {
     const submitForm = () => {
       login.value.validate((valid) => {
         if (valid) {
-          console.log("valid", param, valid);
           ElMessage.success("登录成功");
           localStorage.setItem("ms_username", param.username);
           return;
@@ -95,8 +93,9 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  background-image: url("../assets/img/login-bg.jpg") no-repeat;
-  background-size: 100%;
+  background-image: url("../assets/img/login-bg.jpg") !important;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 .ms-title {
   width: 100%;
