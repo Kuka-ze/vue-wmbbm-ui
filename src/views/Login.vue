@@ -10,7 +10,11 @@
         class="ms-content"
       >
         <el-form-item prop="username">
-          <el-input v-model="param.username" placeholder="请输入账户">
+          <el-input
+            v-model="param.username"
+            placeholder="请输入账户"
+            auto-complete="new-password"
+          >
             <template #prepend>
               <el-button icon="el-icon-user"></el-button>
             </template>
@@ -21,6 +25,7 @@
             type="password"
             placeholder="请输入密码"
             v-model="param.password"
+            auto-complete="new-password"
             @keyup.enter="submitForm()"
           >
             <template #prepend>
@@ -65,6 +70,7 @@ export default {
       login.value.validate((valid) => {
         if (valid) {
           ElMessage.success("登录成功");
+          //   /jurisdiction/common/login
           localStorage.setItem("ms_username", param.username);
           return;
           router.push("/");
