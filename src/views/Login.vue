@@ -46,7 +46,7 @@ import { ref, reactive } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
-
+import { getShopList } from "../network/request";
 export default {
   setup() {
     const router = useRouter();
@@ -69,11 +69,27 @@ export default {
     const submitForm = () => {
       login.value.validate((valid) => {
         if (valid) {
-          ElMessage.success("登录成功");
-          //   /jurisdiction/common/login
-          localStorage.setItem("ms_username", param.username);
-          return;
-          router.push("/");
+          console.log("123", param);
+          let loginParams = {
+            userName: param.username,
+            password: param.password,
+            systemType: 1,
+          };
+          getShopList(loginParams)
+            .then((res) => {
+              console.log(res);
+              const { code, data, message } = res;
+              if (code == 1) {
+                ElMessage.success("登录成功");
+                sessionStorage.setItem("loginInfo", data);
+                router.push("/");
+              } else {
+                ElMessage.error(`${message}`);
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         } else {
           ElMessage.error("登录成功");
           return false;
