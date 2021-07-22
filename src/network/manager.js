@@ -6,14 +6,29 @@ import { getUrl } from '../utils/util'
 const request = axios.create({
     baseURL: getUrl(),
     //请求超时时间
-    timeout: 5000
+    timeout: 35000,
 })
+
+const params = {
+    token: sessionStorage.getItem('loginInfo') ? JSON.parse(sessionStorage.getItem("loginInfo")).token : '',
+    source: "wmdn_pc",
+    appKey: 'XZYJ'
+};
 
 // 请求拦截
 request.interceptors.request.use(
     //config 代表是你请求的一些信息
     config => {
-        // 在请求发送之前的操作
+        // 在请求发送之前配置token
+        if (params.token && params.token.length > 0) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
+            config.headers.authorization = "Bearer " + params.token
+            config.headers.source = params.source
+            config.headers['Content-Type'] = 'application/json'
+        } else if (config.data.token) {
+            config.headers.authorization = "Bearer " + config.data.token
+            config.headers.source = params.source
+            config.headers['Content-Type'] = 'application/json'
+        }
         return config
     },
     error => {
@@ -43,3 +58,4 @@ request.interceptors.response.use(
 )
 
 export default request;
+
