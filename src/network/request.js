@@ -3,7 +3,7 @@ import path from "./api"
 import { POST } from "./requestMethods"
 
 // 登陆接口
-export function Login(params) {
+export function getShopList(params) {
     return fetch({
         url: path.login,
         method: POST,
