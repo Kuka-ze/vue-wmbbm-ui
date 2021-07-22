@@ -1,9 +1,10 @@
 import axios from "axios"
 import { ElMessage } from "element-plus";
+import { getUrl } from '../utils/util'
 
 // 调用axios.create方法，配置一些属性，返回一个新的axios
 const request = axios.create({
-    baseURL: 'https://xsyf-api-dev.zje.com:4343/yf-zhd/?r=',
+    baseURL: getUrl(),
     //请求超时时间
     timeout: 5000
 })
@@ -29,8 +30,12 @@ request.interceptors.request.use(
 
 //  response拦截器 响应拦截器 请求之后的操作
 request.interceptors.response.use(
-    config => {
-        return config.data
+    response => {
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            Promise.reject();
+        }
     },
     error => {
         return Promise.reject(error)
