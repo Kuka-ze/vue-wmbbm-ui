@@ -10,7 +10,7 @@ const request = axios.create({
 })
 
 const params = {
-    token: sessionStorage.getItem('loginInfo') ? JSON.parse(sessionStorage.getItem("loginInfo")).token : '',
+    token: sessionStorage.getItem('loginInfo') && sessionStorage.getItem('loginInfo') ? JSON.parse(sessionStorage.getItem("loginInfo")).token : '' || '',
     source: "wmdn_pc",
     appKey: 'XZYJ'
 };
