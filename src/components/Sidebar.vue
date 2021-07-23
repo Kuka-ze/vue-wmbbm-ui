@@ -55,15 +55,21 @@ import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 export default {
   setup() {
-    // let items = sessionStorage.getItem("menuList")
-    //   ? JSON.parse(sessionStorage.getItem("menuList")).list
-    //   : [];
-    // console.log("caida", items);
     const items = [
       {
         icon: "el-icon-lx-home",
         index: "/dashboard",
         title: "系统首页",
+      },
+      {
+        icon: "el-icon-lx-home",
+        index: "9",
+        title: "管理驾驶舱",
+        subs: [
+          {
+            index: "/screen",
+            title: "数字智能化平台",
+          },]
       },
       {
         icon: "el-icon-lx-cascades",

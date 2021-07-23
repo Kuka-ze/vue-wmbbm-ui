@@ -17,7 +17,8 @@ const routes = [
                     title: '系统首页'
                 },
                 component: () => import( /* webpackChunkName: "dashboard" */ "../views/Dashboard.vue")
-            }, {
+            },
+            {
                 path: "/table",
                 name: "basetable",
                 meta: {
@@ -118,7 +119,15 @@ const routes = [
             title: '登录'
         },
         component: () => import( /* webpackChunkName: "login" */ "../views/Login.vue")
-    }
+    },
+    {
+        path: "/screen",
+        name: "screen",
+        meta: {
+            title: '数字智能化平台'
+        },
+        component: () => import( /* webpackChunkName: "form" */ "../views/Screen.vue")
+    },
 ];
 
 const router = createRouter({
